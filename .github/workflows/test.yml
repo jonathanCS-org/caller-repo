@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   call-workflow:
-    uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yaml
+    uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yml@main
     secrets: inherit
     with:
       config-path: .github/labeler.yml
