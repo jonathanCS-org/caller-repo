@@ -1,0 +1,17 @@
+name: test
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  call-workflow:
+    uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yaml
+    secrets: inherit
+    with:
+      config-path: .github/labeler.yml
