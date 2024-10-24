@@ -15,3 +15,8 @@ jobs:
     secrets: inherit
     with:
       config-path: .github/labeler.yml
+  call-workflow-2:
+    uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yml@main
+    secrets: inherit
+    with:
+      config-path: .github/labeler.yml
