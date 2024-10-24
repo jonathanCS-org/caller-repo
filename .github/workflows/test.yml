@@ -9,15 +9,32 @@ permissions:
   contents: read
   pull-requests: write
 
+# Each job requires the previous to run.
+# They each use the reusable 'update-dep' workflow which takes as input the new version,
+# and updates 
 jobs:
-  call-workflow:
-    uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yml@main
+  update-dev:
+    uses: jonathanCS-org/called-repo/.github/workflows/update-ver.yml@main
     secrets: inherit
     with:
-      config-path: .github/labeler.yml
-  call-workflow-2:
-    needs: call-workflow
-    uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yml@main
+      version: v1.0.1
+      repo: caller-repo
+  update-qual:
+    needs: update-dev
+    uses: jonathanCS-org/called-repo/.github/workflows/update-ver.yml@main
     secrets: inherit
     with:
-      config-path: .github/labeler.yml
+      version: v1.0.1
+      repo: caller-repo
+  # update-acc:
+  #   needs: update-qual
+  #   uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yml@main
+  #   secrets: inherit
+  #   with:
+  #     config-path: .github/labeler.yml
+  # update-prod:
+  #   needs: update-acc
+  #   uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yml@main
+  #   secrets: inherit
+  #   with:
+  #     config-path: .github/labeler.yml
