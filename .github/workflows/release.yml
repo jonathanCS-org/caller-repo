@@ -51,7 +51,7 @@ jobs:
     uses: jonathanCS-org/called-repo-qual/.github/workflows/update-ver.yml@main
     secrets: inherit
     with:
-      version: ${{needs.update-dev.outputs.new-version}}
+      version: ${{needs.update-dev.outputs.version}}
       repo: caller-repo
   # update-acc:
   #   needs: update-qual
