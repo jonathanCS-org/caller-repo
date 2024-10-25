@@ -2,8 +2,10 @@ name: test
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
+
+
 
 permissions:
   contents: read
@@ -13,7 +15,24 @@ permissions:
 # They each use the reusable 'update-dep' workflow which takes as input the new version,
 # and updates 
 jobs:
+  create-release:
+    name: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output pre-version
+        run: |
+          echo ${{github.event.release.tag_name}}
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Output post-version
+        run: |
+          echo ${{github.event.release.tag_name}}
   update-dev:
+    needs: create-release
     uses: jonathanCS-org/called-repo/.github/workflows/update-ver.yml@main
     secrets: inherit
     with:
