@@ -18,6 +18,8 @@ jobs:
   create-release:
     name: create-release
     runs-on: ubuntu-latest
+    outputs:
+      new-version: ${{steps.get-new-version.outputs.tag_name}}
     steps:
       - name: Output pre-version
         run: |
@@ -36,17 +38,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # or your personal access token
         with:
           latest: true  
-      - name: Export version
-        run: |
-          echo ${{steps.get-new-version.outputs.tag_name}}
-          VERSION=${{steps.get-new-version.outputs.tag_name}}
-          echo "::set-output name=version::${{ steps.get-new-version.outputs.tag_name }}"
   update-dev:
     needs: create-release
     uses: jonathanCS-org/called-repo/.github/workflows/update-ver.yml@main
     secrets: inherit
     with:
-      version: ${{needs.create-release.outputs.version}}
+      version: ${{needs.create-release.outputs.new-version}}
       repo: caller-repo
   update-qual:
     needs: update-dev
