@@ -26,17 +26,32 @@ jobs:
         uses: actions/checkout@v4
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
+        id: semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Output post-version
         run: |
           echo ${{github.event.release.tag_name}}
+          echo "Version: ${{ steps.semantic-release.outputs.version }}"
+          echo "Version: ${{ steps.semantic-release.outputs.new-release-version }}"
+          echo "Release Notes: ${{ steps.semantic-release.outputs.notes }}"
+      - name: Get new version
+        id: get-new-version
+        uses: cardinalby/git-get-release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # or your personal access token
+        with:
+          latest: true  
+      - name: Export version
+        run: |
+          echo ${{steps.get-new-version.tag_name}}
+          VERSION=${{steps.get-new-version.tag_name}}
   update-dev:
     needs: create-release
     uses: jonathanCS-org/called-repo/.github/workflows/update-ver.yml@main
     secrets: inherit
     with:
-      version: v1.4.0
+      version: $VERSION
       repo: caller-repo
   update-qual:
     needs: update-dev
