@@ -17,14 +17,14 @@ jobs:
     uses: jonathanCS-org/called-repo/.github/workflows/update-ver.yml@main
     secrets: inherit
     with:
-      version: v1.0.1
+      version: v1.4.0
       repo: caller-repo
   update-qual:
     needs: update-dev
     uses: jonathanCS-org/called-repo/.github/workflows/update-ver.yml@main
     secrets: inherit
     with:
-      version: v1.0.1
+      version: v1.4.0
       repo: caller-repo
   # update-acc:
   #   needs: update-qual
