@@ -40,7 +40,7 @@ jobs:
         run: |
           echo ${{steps.get-new-version.outputs.tag_name}}
           VERSION=${{steps.get-new-version.outputs.tag_name}}
-          run: echo "::set-output name=version::${{ steps.get-new-version.outputs.tag_name }}"
+          echo "::set-output name=version::${{ steps.get-new-version.outputs.tag_name }}"
   update-dev:
     needs: create-release
     uses: jonathanCS-org/called-repo/.github/workflows/update-ver.yml@main
