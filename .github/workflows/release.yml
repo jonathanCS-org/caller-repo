@@ -29,12 +29,6 @@ jobs:
         id: semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Output post-version
-        run: |
-          echo ${{github.event.release.tag_name}}
-          echo "Version: ${{ steps.semantic-release.outputs.version }}"
-          echo "Version: ${{ steps.semantic-release.outputs.new-release-version }}"
-          echo "Release Notes: ${{ steps.semantic-release.outputs.notes }}"
       - name: Get new version
         id: get-new-version
         uses: cardinalby/git-get-release-action@v1
