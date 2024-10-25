@@ -4,4 +4,4 @@ Proof of concept for updating version
 
 1. Uses the workflow from the 'called' downstream repo, and injects version and repo
 2. The downstream workflow finds and replaces occurences of the repo with the new version
-3. 
+3. A new PR is made
