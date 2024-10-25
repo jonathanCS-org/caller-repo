@@ -45,22 +45,23 @@ jobs:
     with:
       version: ${{needs.create-release.outputs.new-version}}
       repo: caller-repo
+    
   update-qual:
     needs: update-dev
-    uses: jonathanCS-org/called-repo/.github/workflows/update-ver.yml@main
+    uses: jonathanCS-org/called-repo-qual/.github/workflows/update-ver.yml@main
     secrets: inherit
     with:
-      version: v1.4.0
+      version: ${{needs.update-dev.outputs.new-version}}
       repo: caller-repo
   # update-acc:
   #   needs: update-qual
-  #   uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yml@main
+  #   uses: jonathanCS-org/called-repo-acc/.github/workflows/reusable-test.yml@main
   #   secrets: inherit
   #   with:
   #     config-path: .github/labeler.yml
   # update-prod:
   #   needs: update-acc
-  #   uses: jonathanCS-org/called-repo/.github/workflows/reusable-test.yml@main
+  #   uses: jonathanCS-org/called-repo-prod/.github/workflows/reusable-test.yml@main
   #   secrets: inherit
   #   with:
   #     config-path: .github/labeler.yml
