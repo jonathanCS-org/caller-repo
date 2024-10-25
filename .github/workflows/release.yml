@@ -52,7 +52,7 @@ jobs:
     secrets: inherit
     with:
       version: ${{needs.update-dev.outputs.version}}
-      repo: caller-repo-qual
+      repo: caller-repo
   # update-acc:
   #   needs: update-acc
   #   uses: jonathanCS-org/called-repo-acc/.github/workflows/reusable-test.yml@main
